@@ -111,8 +111,7 @@ class UserController extends Controller
             return response()->json([
                 'status' => "success",
                 'message' => "OTP code verified successfully",
-                'token' => $token
-            ]);
+            ])->cookie('token', $token, 60 * 24 * 30);
         } else {
             return response()->json([
                 'status' => "fail",

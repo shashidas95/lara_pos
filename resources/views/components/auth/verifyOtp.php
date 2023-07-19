@@ -8,12 +8,12 @@
 
                 <div class="card">
                     <div class="card-body login-card-body">
-                        <p class="login-box-msg">You forgot your password? Here you can easily retrieve a new password.
+                        <p class="login-box-msg">Verify OTP
                         </p>
 
-                        <form action="recover-password.html" method="post">
+                        <form>
                             <div class="input-group mb-3">
-                                <input id="emailForVerifyMail" type="email" class="form-control" placeholder="Email">
+                                <input id="otp" type="text" class="form-control" placeholder="otp">
                                 <div class="input-group-append">
                                     <div class="input-group-text">
                                         <span class="fas fa-envelope"></span>
@@ -22,7 +22,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-12">
-                                    <button onclick="VerifyMail()" type="submit" class="btn btn-primary btn-block">Next </button>
+                                    <button onclick="VerifyOTP()" type="submit" class="btn btn-primary btn-block">Next </button>
                                 </div>
                                 <!-- /.col -->
                             </div>
@@ -41,22 +41,22 @@
         </div>
     </div>
     <script>
-        async function VerifyMail() {
-            let email = document.getElementById('emailForVerifyMail').value;
-            if (email.length === 0) {
-                errorToast('Email is required')
+        async function VerifyOTP() {
+            let otp = document.getElementById('otp').value;
+            if (otp.length !== 4) {
+                errorToast('Invalid OTP ')
             } else {
                 showLoader();
                 const res = await axios.post('/verify-otp', {
-                    email: email,
-
+                    otp: otp,
+                    email: sessionStorage.getItem('email')
                 });
                 hideLoader();
                 if (res.status === 200 && res.data['status'] == 'success') {
                     successToast(res.data['message']);
-                    sessionStorage.setItem('email', email)
+                    sessionStorage.clear()
                     setTimeout(() => {
-                        window.location.href = '/verify-otp';
+                        window.location.href = '/resetPassword';
                     }, 2000);
 
                 } else {
