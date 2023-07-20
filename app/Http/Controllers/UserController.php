@@ -105,7 +105,7 @@ class UserController extends Controller
         $email = $request->input('email');
         $otp = $request->input('otp');
         $count = User::where('email', '=', $email)->where('otp', '=', $otp)->count();
-        if ($count == 1) {
+        if ($count === 1) {
             $token = JWTToken::CreateTokenForSetPassword($email);
             User::where('email', '=', $email)->update(['otp' => '0']);
             return response()->json([

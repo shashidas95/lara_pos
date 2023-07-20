@@ -22,7 +22,8 @@
                             </div>
                             <div class="row">
                                 <div class="col-12">
-                                    <button onclick="VerifyOTP()" type="submit" class="btn btn-primary btn-block">Next </button>
+                                    <button onclick="VerifyOTP()" type="submit" class="btn btn-primary btn-block">Next
+                                    </button>
                                 </div>
                                 <!-- /.col -->
                             </div>
